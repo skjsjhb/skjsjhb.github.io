@@ -18,7 +18,7 @@ opt_pre=false # preview mode option
 
 working_branch="$(git branch --show-current)"
 
-DEFAULT_BRANCH="$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
+DEFAULT_BRANCH="main"
 
 PROD_BRANCH="production"
 
