@@ -155,7 +155,10 @@ build_gem() {
   sed -i "s/^img_cdn:.*/img_cdn:/;s/^avatar:.*/avatar:/" _config.yml
   rm -f ./*.gem
 
-  npm run build
+  # npm run build This is not working
+  npx rimraf assets/js/dist
+  NODE_ENV=production npx rollup -c --bundleConfigAsCjs
+
   git add "$JS_DIST" -f # add JS dist to gem
   gem build "$GEM_SPEC"
   cp "$JS_DIST"/* "$BACKUP_PATH"
@@ -170,6 +173,8 @@ build_gem() {
 
 main() {
   check
+
+  node fixup.js
 
   if [[ $opt_pre = false && $working_branch != "$PROD_BRANCH" ]]; then
     git checkout "$PROD_BRANCH"
